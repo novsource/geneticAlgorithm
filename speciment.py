@@ -1,5 +1,5 @@
 import struct
-from base64 import decode
+from codecs import decode
 
 import numpy as np
 import random
@@ -14,16 +14,30 @@ class Speciment:
             self.signs = signs
 
     def mutation(self):
-        mutant = random.choice(self.signs)
-        print("До мутации: ", mutant)
-        print("После: ", self.float_to_bin(mutant))
+        parts = self.get_parts_bin()
 
-    def bin_to_float(self, b):
+        count = 0
+        print("Мутация в деле, границы типов на пределе: ")
+        for i in parts:
+            random_part = int(random.random())
+            random_razr = random.randint(0, 16)
+
+            # Мой индус-код (пока не трогаем, работает)
+            number = "1" if i[random_part][random_razr] == "0" else "0"
+            parts[count][random_part] = parts[count][random_part][:random_razr] + \
+                                        number + \
+                                        parts[count][random_part][random_razr + 1:]
+            self.signs[count] = self.bin_to_float(parts[count][0] + parts[count][1])
+            count += 1
+
+    def int_to_bytes(self, n, length):  # Helper function
+        return decode('%%0%dx' % (length << 1) % n, 'hex')[-length:]
+
+    def bin_to_float(self, b, length=8):
+        # hx = hex(int(b, 2))
+        # return struct.unpack("d", struct.pack("q", int(hx, 16)))[0]
         bf = self.int_to_bytes(int(b, 2), 8)
         return struct.unpack('>d', bf)[0]
-
-    def int_to_bytes(self, n, length):
-        return decode('%%0%dx' % (length << 1) % n, 'hex')[-length:]
 
     def float_to_bin(self, value):
         [d] = struct.unpack(">Q", struct.pack(">d", value))
@@ -45,3 +59,4 @@ class Speciment:
         count = 0
         for i in self.signs:
             self.signs[count] = self.bin_to_float(i)
+            count += 1
