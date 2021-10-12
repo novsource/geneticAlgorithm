@@ -1,4 +1,5 @@
 import struct
+import locale
 from codecs import decode
 
 import numpy as np
@@ -30,7 +31,7 @@ class Speciment:
             self.signs[count] = self.bin_to_float(parts[count][0] + parts[count][1])
             count += 1
 
-    def int_to_bytes(self, n, length):  # Helper function
+    def int_to_bytes(self, n, length):
         return decode('%%0%dx' % (length << 1) % n, 'hex')[-length:]
 
     def bin_to_float(self, b, length=8):
