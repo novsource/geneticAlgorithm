@@ -7,19 +7,20 @@ from speciment import Speciment
 
 
 def reproduction_speciment(parent_father=Speciment, parent_mother=Speciment):
-    print("\n Начало размножения")
     random_range_of_reproduction = random.randint(1, len(parent_mother.genes))
 
     gen_father_first = parent_father.genes[0: random_range_of_reproduction]
 
     gen_mother_second = parent_mother.genes[random_range_of_reproduction:len(parent_mother.genes)]
-    #  gen_father_second = parent_father.genes[0:random_range_of_reproduction]
+    gen_father_second = parent_father.genes[0:random_range_of_reproduction]
 
-    #  gen_mother_first = parent_mother.genes[random_range_of_reproduction:len(parent_father.genes)]
+    gen_mother_first = parent_mother.genes[random_range_of_reproduction:len(parent_father.genes)]
 
-    descendants = (Speciment(genes=np.hstack([gen_father_first, gen_mother_second]), signs=parent_mother.signs))
+    if random.randint(0, 1) == 0:
+        descendants = (Speciment(genes=np.hstack([gen_father_first, gen_mother_second]), signs=parent_mother.signs))
+    else:
+        descendants = (Speciment(genes=np.hstack([gen_father_second, gen_mother_first]), signs=parent_mother.signs))
 
-    print('Потомок: ', descendants.genes)
 
     return descendants
 
@@ -49,11 +50,10 @@ def population_reproduction(population):
     return population
 
 
-def population_mutation(population):
-    print("\n Начало мутаций")
+def population_mutation(population, age):
     for i in range(random.randint(10, population.__len__()-1)):
         random_speciment = random.randint(0, population.__len__() // 2)
-        population[random_speciment].mutation()
+        population[random_speciment].mutation(age)
     return population
 
 

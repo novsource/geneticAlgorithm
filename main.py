@@ -13,15 +13,23 @@ if __name__ == '__main__':
         population.append(Speciment())
 
     count = 1
+    min_index_speciment = 0
 
-    for i in range(100):
+    while True:
         print("Поколение: ", count)
         population = gen.population_reproduction(population)
-        gen.population_mutation(population)
+        gen.population_mutation(population, count)
         population = gen.population_selection(population)
         count += 1
+        print('min: ', min(graphics.euclid_distance(population)))
+        if min(graphics.euclid_distance(population)) < 0.5:
+            euclid_dist = graphics.euclid_distance_test(population)
+            min_index_speciment = graphics.euclid_distance(population).index(min(graphics.euclid_distance(population)))
+            break
 
-    graphics.draw_pyplot(population[0].signs, population[0].genes)
+    print('Особь ', population[min_index_speciment].genes)
+    print('func', generic_result[1])
+    graphics.draw_two_plot(population[min_index_speciment])
 
 
 
