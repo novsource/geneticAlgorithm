@@ -7,7 +7,7 @@ from speciment import Speciment
 
 def log_function():
     argument = np.arange(0.1, 10.1, 0.1)
-    log_func = 4 * np.square(argument)
+    log_func = np.log10(2*argument)
     return [argument, log_func]
 
 
