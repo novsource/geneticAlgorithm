@@ -21,23 +21,7 @@ def reproduction_speciment(parent_father=Speciment, parent_mother=Speciment):
     else:
         descendants = (Speciment(genes=np.hstack([gen_father_second, gen_mother_first]), signs=parent_mother.signs))
 
-
     return descendants
-
-    # parts_father = parent_father.get_parts_bin()
-    # parts_mother = parent_mother.get_parts_bin()
-    #
-    # descendant_signs = []
-    #
-    # count = 0
-    # for i in parts_mother:
-    #     descendant_signs.append(list(parts_father)[count][0] + i[1])
-    #     count += 1
-    #
-    # descendant = speciment.Speciment(descendant_signs)
-    # descendant.translate_signs_in_float()
-    # print("Потомок: ", list(descendant.genes))
-    # return descendant
 
 
 def population_reproduction(population):
