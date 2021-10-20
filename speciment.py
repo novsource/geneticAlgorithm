@@ -1,6 +1,7 @@
 import numpy as np
 import random
 
+
 class Speciment:
 
     def __init__(self, signs=None, genes=None):

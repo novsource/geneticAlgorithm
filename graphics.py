@@ -31,6 +31,6 @@ def euclid_distance(population):
     for i in range(len(population)):
         for count in range(len(population[i].genes)):
             new_sum += np.linalg.norm(log_function()[1][count] - population[i].genes[count])
-        euclid_distance_of_population.append(np.sqrt(new_sum))
+        euclid_distance_of_population.append(new_sum)
         new_sum = 0
     return euclid_distance_of_population
